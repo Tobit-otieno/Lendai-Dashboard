@@ -1,20 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
-export default function App() {
+import { useFonts } from "expo-font";
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { SafeAreaView, View } from "react-native";
+import MobileRouting from "./src/Routing/MobileRouting";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import WebRouting from "./src/Routing/WebRouting";
+import { isWeb } from "./src/Utilities/DeviceCheker";
+const App = () => {
+  //     const [fontsLoaded, fontError] = useFonts({
+  //   Museo: require("./assets/fonts/MuseoModerno-Regular.ttf"),
+  //   MuseoBold: require("./assets/fonts/MuseoModerno-Bold.ttf"),
+  //   MuseoSemiBold: require("./assets/fonts/MuseoModerno-SemiBold.ttf"),
+  //   MuseoBlack: require("./assets/fonts/MuseoModerno-Black.ttf"),
+  // });
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <GestureHandlerRootView>
+        {isWeb() ? <WebRouting /> : <MobileRouting />}
+      </GestureHandlerRootView>
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
